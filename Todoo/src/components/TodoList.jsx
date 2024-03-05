@@ -10,9 +10,9 @@ export default function TodoList() {
     const [todo, setTodo] = useState({ desc: '', date: '', priority: '' });
     const [todos, setTodos] = useState([]);
     const [columnDefs] = useState([
-        { field: 'desc', sortable: false, filter: true },
-        { field: 'date', filter: true },
-        { field: 'priority', filter: true, cellStyle: params => params.value === "High" ? { color: 'red' } : { color: 'black' }, }
+        { field: 'desc', sortable: false, filter: true, floatingFilter: true },
+        { field: 'date', filter: true, floatingFilter: true },
+        { field: 'priority', filter: true, floatingFilter: true, cellStyle: params => params.value === "High" ? { color: 'red' } : { color: 'black' }, }
     ]);
     const gridRef = useRef();
 
