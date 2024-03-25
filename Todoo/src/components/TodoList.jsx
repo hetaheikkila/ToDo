@@ -1,9 +1,9 @@
 import { useState, useRef } from "react";
-import TodoTable from "./TodoTable";
 import { AgGridReact } from "ag-grid-react";
-
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-material.css";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import DatePicker from "./DatePicker";
 
 export default function TodoList() {
 
@@ -31,24 +31,40 @@ export default function TodoList() {
             alert('Select a row first!');
         }
     };
+    const handleDateChange = (event) => {
+        setTodo({ ...todo, date: event.target.value })
+    }
 
 
     return (
         <>
-            <input
-                placeholder="Description"
-                onChange={e => setTodo({ ...todo, desc: e.target.value })}
-                value={todo.desc} />
-            <input
-                placeholder="Date"
-                onChange={e => setTodo({ ...todo, date: e.target.value })}
-                value={todo.date} />
-            <input
-                placeholder="Priority"
-                onChange={e => setTodo({ ...todo, priority: e.target.value })}
-                value={todo.priority} />
-            <button onClick={addTodo}>Add</button>
-            <button onClick={handleDelete}>Delete</button>
+            <h3>ToDo lista</h3>
+            <Stack direction="row" spacing={2} justifyContent="center" alignItems="center">
+
+                <TextField
+                    label="Description"
+                    name="desc"
+                    value={todo.desc}
+                    onChange={e => setTodo({ ...todo, desc: e.target.value })} />
+
+               
+
+                    <DatePicker value={todo.date} onChange={handleDateChange}/> 
+
+                <TextField
+                    label="Priority"
+                    name="priority"
+                    value={todo.priority}
+                    onChange={e => setTodo({ ...todo, priority: e.target.value })} />
+
+                <Button variant="contained" onClick={addTodo}>
+                    Add
+                </Button>
+                <Button variant="contained" onClick={handleDelete}>
+                    Delete
+                </Button>
+
+            </Stack>
             <div className="ag-theme-material" style={{ width: 700, height: 500 }}>
                 <AgGridReact
                     ref={gridRef}
